@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>00:00 | 天然植物精油香氛品牌</title>
+<style>
+  @font-face {
+    font-family: 'PlayfairFallback';
+    src: local('Playfair Display');
+  }
+
+- { margin:0; padding:0; box-sizing:border-box; }
+
+html, body {
+width:100%; height:100%;
+background:#0a0908;
+overflow-x:hidden;
+font-family: Georgia, ‘Noto Serif TC’, serif;
+}
+
+/* –––––––– INTRO / COUNTDOWN (DIGITAL LED CLOCK) –––––––– */
+#intro {
+position:fixed; inset:0;
+display:flex; align-items:center; justify-content:center;
+background:#000000;
+z-index:100;
+transition: background 1.6s ease, opacity 1s ease 0.15s;
+}
+
+#intro.lit {
+background: radial-gradient(circle at 50% 38%, #8a6a45 0%, #6b4f34 30%, #3c2c1f 62%, #150f0a 100%);
+}
+
+#intro.hidden {
+opacity:0;
+pointer-events:none;
+}
+
+.glow {
+position:absolute;
+width:60vmax; height:60vmax;
+border-radius:50%;
+background: radial-gradient(circle, rgba(180,140,90,0.18) 0%, rgba(180,140,90,0) 70%);
+opacity:0;
+transition: opacity 1s ease;
+pointer-events:none;
+}
+
+#intro.lit .glow { opacity:1; }
+
+.clock-wrap {
+position:relative;
+z-index:2;
+display:flex;
+flex-direction:column;
+align-items:center;
+transition: opacity 0.5s ease;
+}
+
+.clock-wrap.gone {
+opacity:0;
+}
+
+#led-clock {
+font-family: ‘Courier New’, ‘DS-Digital’, monospace;
+font-size: clamp(2.6rem, 12vw, 6rem);
+font-weight:700;
+letter-spacing:0.05em;
+color:#ffffff;
+text-shadow:
+0 0 6px rgba(255,255,255,0.55),
+0 0 18px rgba(255,255,255,0.25);
+font-variant-numeric: tabular-nums;
+white-space:nowrap;
+opacity:1;
+transition: opacity 0.25s ease;
+}
+
+#led-clock.faded {
+opacity:0;
+}
+
+/* the logo swaps in at the exact same box the LED clock occupied */
+.logo-swap {
+position:absolute;
+top:0; left:0;
+width:100%;
+height:100%;
+display:flex;
+align-items:center;
+justify-content:center;
+opacity:0;
+transition: opacity 0.35s ease;
+pointer-events:none;
+}
+
+.logo-swap.show {
+opacity:1;
+}
+
+.logo-swap img {
+/* match the LED clock’s rendered width/height so position & scale feel identical */
+height: clamp(2.6rem, 12vw, 6rem);
+width:auto;
+filter: drop-shadow(0 0 20px rgba(230,190,120,0.45));
+}
+
+.clock-stage {
+position:relative;
+display:inline-flex;
+align-items:center;
+justify-content:center;
+}
+
+.sub-label {
+margin-top:1.4rem;
+font-size:0.75rem;
+letter-spacing:0.5em;
+color:#6b5e4e;
+text-transform:uppercase;
+opacity:0;
+transition: opacity 1s ease 0.6s;
+}
+#intro.lit .sub-label { opacity:1; color:#c9b493; }
+
+/* –––––––– MAIN SITE –––––––– */
+#site {
+position:relative;
+min-height:100vh;
+width:100%;
+opacity:0;
+background: radial-gradient(circle at 50% 30%, #a17d54 0%, #7c5c3c 28%, #4a3626 60%, #201811 100%);
+color:#f2e8d8;
+display:flex;
+flex-direction:column;
+transition: opacity 1.2s ease;
+}
+#site.show { opacity:1; }
+
+header.nav {
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding: 1.8rem 2rem 0.5rem;
+}
+
+.brand-mark {
+display:flex;
+flex-direction:column;
+line-height:1;
+}
+.brand-mark .mark {
+font-size:1.6rem;
+letter-spacing:0.03em;
+color:#f2e8d8;
+}
+.brand-mark .tagline {
+font-size:0.55rem;
+letter-spacing:0.45em;
+color:#c9b493;
+margin-top:0.4rem;
+text-transform:uppercase;
+}
+
+.line-cta {
+font-size:0.85rem;
+letter-spacing:0.15em;
+color:#f2e8d8;
+text-decoration:none;
+border-bottom:1px solid rgba(242,232,216,0.6);
+padding-bottom:2px;
+white-space:nowrap;
+}
+
+main {
+flex:1;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+text-align:center;
+padding: 2rem 1.5rem 4rem;
+}
+
+.prev-time {
+font-size:clamp(1.2rem, 4vw, 1.8rem);
+color:rgba(230,210,180,0.35);
+text-decoration: line-through;
+text-decoration-color: rgba(200,90,60,0.5);
+letter-spacing:0.08em;
+margin-bottom:0.3rem;
+}
+
+.hero-logo {
+width: clamp(220px, 55vw, 420px);
+height:auto;
+margin-top:0.2rem;
+filter: drop-shadow(0 6px 40px rgba(0,0,0,0.25));
+}
+
+.slogan-en {
+margin-top:3rem;
+font-size:clamp(1.5rem, 4vw, 2.2rem);
+line-height:1.4;
+color:#f7efe1;
+max-width:20ch;
+}
+
+.slogan-zh {
+margin-top:1.2rem;
+font-size:1rem;
+letter-spacing:0.1em;
+color:#d8c3a0;
+}
+
+.cta-btn {
+margin-top:3rem;
+display:inline-block;
+background:#f2e8d8;
+color:#3c2c1f;
+padding:1.1rem 3.5rem;
+font-size:0.95rem;
+letter-spacing:0.2em;
+text-decoration:none;
+font-family: inherit;
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+box-shadow: 0 4px 30px rgba(0,0,0,0.25);
+}
+.cta-btn:hover {
+transform: translateY(-2px);
+box-shadow: 0 8px 40px rgba(0,0,0,0.35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+.glow, #intro, .sub-label, #site, .clock-wrap, #led-clock, .logo-swap { animation:none !important; transition:none !important; }
+}
+</style>
+
+</head>
+<body>
+
+<div id="intro">
+  <div class="glow"></div>
+  <div class="clock-wrap">
+    <div class="clock-stage">
+      <div id="led-clock">11:59</div>
+      <div class="logo-swap" id="logo-swap">
+        <img src="assets/logo.png" alt="00:00 A New Day">
+      </div>
+    </div>
+    <div class="sub-label">A New Day</div>
+  </div>
+</div>
+
+<div id="site">
+  <header class="nav">
+    <div class="brand-mark">
+      <div class="mark">00:00</div>
+      <div class="tagline">A New Day</div>
+    </div>
+    <a href="#" class="line-cta">加入 LINE</a>
+  </header>
+
+  <main>
+    <div class="prev-time">23:59</div>
+    <img src="assets/logo.png" alt="00:00 A New Day" class="hero-logo">
+    <p class="slogan-en">Every moment is a chance<br>to begin again</p>
+    <p class="slogan-zh">每一刻，都是重新開始的機會</p>
+
+```
+<a href="#" class="cta-btn">開始 00:00 儀式</a>
+```
+
+  </main>
+</div>
+
+<script>
+  const intro = document.getElementById('intro');
+  const site = document.getElementById('site');
+  const clockWrap = document.querySelector('.clock-wrap');
+  const ledClock = document.getElementById('led-clock');
+  const logoSwap = document.getElementById('logo-swap');
+
+  // Hold on 11:59 for exactly 1 second
+  setTimeout(() => {
+    // fade the LED text out and the logo in, at the same position/size
+    ledClock.classList.add('faded');
+    logoSwap.classList.add('show');
+    intro.classList.add('lit');
+  }, 1000);
+
+  // let the logo sit for a beat, then make the whole clock vanish
+  setTimeout(() => {
+    clockWrap.classList.add('gone');
+  }, 2000);
+
+  // reveal the real site as the clock fades away
+  setTimeout(() => {
+    site.classList.add('show');
+    intro.classList.add('hidden');
+  }, 2400);
+
+  setTimeout(() => {
+    intro.style.display = 'none';
+  }, 3500);
+</script>
+
+</body>
+</html>
