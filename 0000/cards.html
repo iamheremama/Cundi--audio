@@ -12,13 +12,15 @@
 
   html, body{
     width:100%; min-height:100vh;
-    background: radial-gradient(circle at 50% 26%, #a17d54 0%, #7c5c3c 28%, #4a3626 60%, #201811 100%);
     color:#f2e8d8;
     font-family:'Noto Sans TC', 'Noto Serif TC', serif;
     -webkit-font-smoothing:antialiased;
   }
 
   body{
+    background:
+      linear-gradient(180deg, rgba(10,9,8,0.55) 0%, rgba(10,9,8,0.38) 35%, rgba(10,9,8,0.72) 100%),
+      url('assets/bg-water.jpg') center / cover no-repeat fixed;
     display:flex;
     flex-direction:column;
     align-items:center;
@@ -93,7 +95,8 @@
     position:absolute;
     inset:0;
     border-radius:16px;
-    background: radial-gradient(circle at 50% 32%, #6b4f34 0%, #3c2c1f 62%, #150f0a 100%);
+    overflow:hidden;
+    background: url('assets/card-back.jpg') center / cover no-repeat;
     border:1px solid rgba(242,232,216,0.18);
     box-shadow: 0 10px 30px rgba(0,0,0,0.35);
     transition: transform .5s ease, opacity .5s ease;
@@ -142,7 +145,7 @@
     border-radius:16px;
     overflow:hidden;
     cursor:pointer;
-    background: radial-gradient(circle at 50% 32%, #6b4f34 0%, #3c2c1f 62%, #150f0a 100%);
+    background: url('assets/card-back.jpg') center / cover no-repeat;
     border:1px solid rgba(242,232,216,0.25);
     box-shadow: 0 16px 40px rgba(0,0,0,0.45);
     display:flex;
@@ -162,14 +165,6 @@
   .card-face img{
     width:100%; height:100%; object-fit:cover; display:block;
   }
-
-  .facedown-mark{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:0.9rem;
-  }
-  .facedown-mark img{ width:44%; opacity:0.9; }
 
   .card:not(.can-tap){ cursor:default; }
 
@@ -240,11 +235,7 @@
     <div class="deco deco1"></div>
     <div class="deco deco2"></div>
     <div class="card" id="card">
-      <div class="card-face" id="cardFace">
-        <div class="facedown-mark">
-          <img src="assets/logo-mark.png" alt="00:00">
-        </div>
-      </div>
+      <div class="card-face" id="cardFace"></div>
     </div>
   </div>
 
@@ -267,11 +258,6 @@
   const hint = document.getElementById('hint');
   const titleText = document.getElementById('titleText');
   const subText = document.getElementById('subText');
-
-  const FACEDOWN_HTML = `
-    <div class="facedown-mark">
-      <img src="assets/logo-mark.png" alt="00:00">
-    </div>`;
 
   let state = 'idle'; // idle -> revealing -> front -> back
   let lastDrawn = null;
@@ -302,7 +288,7 @@
   }
 
   function renderFacedown(){
-    cardFace.innerHTML = FACEDOWN_HTML;
+    cardFace.innerHTML = '';
   }
 
   function renderFront(n){
