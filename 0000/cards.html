@@ -124,7 +124,7 @@
   .facedown{
     position:absolute;
     inset:0;
-    background:#9a5c46;
+    background:#2e323d;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -159,18 +159,13 @@
   .fd-dot.tr{ top:8%; right:8.6%; }
   .fd-dot.bl{ bottom:8%; left:8.6%; }
   .fd-dot.br{ bottom:8%; right:8.6%; }
-  .fd-text{
+  .facedown .fd-mark-img{
     position:relative;
     z-index:2;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:0.6rem;
-    font-family:'Noto Serif TC', serif;
-    color:#f2e8d8;
+    width:56%;
+    height:auto;
+    object-fit:contain;
   }
-  .fd-text span{ letter-spacing:0.5em; font-size:0.8rem; }
-  .fd-text .fd-mark{ font-size:1.5rem; letter-spacing:0.06em; }
 
   .card-face{
     position:absolute;
@@ -274,12 +269,7 @@
       <div class="fd-dot tr"></div>
       <div class="fd-dot bl"></div>
       <div class="fd-dot br"></div>
-      <div class="fd-text">
-        <span>A</span>
-        <span class="fd-mark">00:00</span>
-        <span>NEW</span>
-        <span>DAY</span>
-      </div>
+      <img class="fd-mark-img" src="assets/card-back-mark.png" alt="00:00 A New Day">
     </div>`;
 
   let state = 'idle'; // idle -> revealing -> front -> back
